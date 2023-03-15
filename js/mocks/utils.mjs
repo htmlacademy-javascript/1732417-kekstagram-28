@@ -1,4 +1,3 @@
-import {DESCRIPTIONS, MESSAGES, OBJECTS_COUNT, generateCommentId, generatePhotoId, generatePhotoUrlId, NAME} from './const.mjs';
 
 //Функция генератор получения случайных чисел из диапозона.
 function getRandomPositiveInteger (min, max) {
@@ -30,29 +29,4 @@ function createRandomIdFromRangeGenerator(min, max) {
     return currentValue;
   };
 }
-
-//Функция которая возвращает разные комментарии.
-function createComments() {
-  return {
-    id: generateCommentId(),
-    avatar: `img/avatar-${createRandomIdFromRangeGenerator(1, 6)}.svg`,
-    message: getRandomArrayElement(MESSAGES),
-    name: getRandomArrayElement(NAME),
-  };
-}
-
-
-function createObjectsOfPhoto() {
-  return {
-    id: generatePhotoId(),
-    url: `photos/${generatePhotoUrlId()}.jpg`,
-    descriptions: getRandomArrayElement(DESCRIPTIONS),
-    likes: getRandomPositiveInteger(15, 200),
-    comments: Array.from({length:getRandomPositiveInteger(1,2)}, createComments),
-  };
-}
-
-function createPhotos() {
-  return Array.from({length: OBJECTS_COUNT}, createObjectsOfPhoto);
-}
-export {getRandomPositiveInteger, createRandomIdFromRangeGenerator, createObjectsOfPhoto, createPhotos};
+export {getRandomPositiveInteger, getRandomArrayElement, createRandomIdFromRangeGenerator};

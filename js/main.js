@@ -1,4 +1,4 @@
-import {createPhotos} from './functions.mjs';
+import {createPhotos} from './mocks/generatePostData.mjs';
 
 createPhotos();
 

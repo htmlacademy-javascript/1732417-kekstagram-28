@@ -1,5 +1,3 @@
-import {createRandomIdFromRangeGenerator} from '../js/functions.mjs';
-
 const OBJECTS_COUNT = 25;
 
 const NAME = [
@@ -52,8 +50,4 @@ const DESCRIPTIONS = [
   'Бегемот застрял в текстурах.',
 ];
 
-const generatePhotoId = createRandomIdFromRangeGenerator(1, OBJECTS_COUNT);
-const generatePhotoUrlId = createRandomIdFromRangeGenerator(1, OBJECTS_COUNT);
-const generateCommentId = createRandomIdFromRangeGenerator(1, 500);
-
-export {MESSAGES, NAME, DESCRIPTIONS, OBJECTS_COUNT, generateCommentId, generatePhotoId, generatePhotoUrlId};
+export {MESSAGES, NAME, DESCRIPTIONS, OBJECTS_COUNT};
