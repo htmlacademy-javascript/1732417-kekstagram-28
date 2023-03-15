@@ -1,6 +1,6 @@
 const OBJECTS_COUNT = 25;
 
-const NAME = [
+const USER_NAMES = [
   'Виктор',
   'Антонио',
   'Игнат',
@@ -13,7 +13,7 @@ const NAME = [
   'Кирилл'
 ];
 
-const MESSAGES = [
+const COMMENT_MESSAGES = [
   'Всё отлично!',
   'В целом всё неплохо. Но не всё.',
   'Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.',
@@ -50,4 +50,4 @@ const DESCRIPTIONS = [
   'Бегемот застрял в текстурах.',
 ];
 
-export {MESSAGES, NAME, DESCRIPTIONS, OBJECTS_COUNT};
+export {COMMENT_MESSAGES, USER_NAMES, DESCRIPTIONS, OBJECTS_COUNT};
