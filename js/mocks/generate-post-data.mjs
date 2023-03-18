@@ -16,7 +16,7 @@ function createComments() {
   };
 }
 
-function createObjectsOfPhoto() {
+function createObjectOfPhoto() {
   return {
     id: generatePhotoId(),
     url: `photos/${generatePhotoUrlId()}.jpg`,
@@ -26,8 +26,8 @@ function createObjectsOfPhoto() {
   };
 }
 
-function createPhotos() {
-  return Array.from({length: OBJECTS_COUNT}, createObjectsOfPhoto);
+function createPhotos(count) {
+  return Array.from({length: count}, createObjectOfPhoto);
 }
 
 export {createPhotos};
