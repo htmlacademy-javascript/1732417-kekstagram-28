@@ -5,8 +5,8 @@ const generatePhotoId = createRandomIdFromRangeGenerator(1, OBJECTS_COUNT);
 const generatePhotoUrlId = createRandomIdFromRangeGenerator(1, OBJECTS_COUNT);
 const generateCommentId = createRandomIdFromRangeGenerator(1, 500);
 
-//Функция которая возвращает разные комментарии.
-function createComments() {
+//Функция которая возвращает разный комментарии.
+function createComment() {
   return {
     id: generateCommentId(),
     avatar: `img/avatar-${getRandomPositiveInteger(1, 6)}.svg`,
@@ -21,7 +21,7 @@ function createObjectOfPhoto() {
     url: `photos/${generatePhotoUrlId()}.jpg`,
     descriptions: getRandomArrayElement(DESCRIPTIONS),
     likes: getRandomPositiveInteger(15, 200),
-    comments: Array.from({length:getRandomPositiveInteger(1,20)}, createComments),
+    comments: Array.from({length:getRandomPositiveInteger(1, 20)}, createComment),
   };
 }
 

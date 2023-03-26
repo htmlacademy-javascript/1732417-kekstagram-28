@@ -38,26 +38,21 @@ function renderComments(pictureComments) {
 }
 /**
  * Обработчик клика на кнопке загрузки комментариев.
+ * При клике на кнопку загрузки комментариев функция показывает скрытые комментарии
  */
-function onLoaderClick () {
-  const commentsLength = commentsContainer.children.length;
-  const commentsLoader = document.querySelector('.comments-loader');
+function onLoaderClick() {
+  const comments = Array.from(commentsContainer.children);
+  const hiddenComments = comments.filter((comment) => comment.classList.contains('hidden'));
   const visibleCommentsCount = document.querySelector('.visible-comments-count');
-  let commentsHiddenLength = commentsContainer.querySelectorAll('.hidden').length;
+  const commentsLoader = document.querySelector('.comments-loader');
 
-  if (commentsHiddenLength > VISIBLE_COMMENTS_LIMIT) {
-    for (let i = 0; i <= commentsLength - commentsHiddenLength - 1 + VISIBLE_COMMENTS_LIMIT; i++) {
-      commentsContainer.children[i].classList.remove('hidden');
-    }
-    commentsHiddenLength = commentsContainer.querySelectorAll('.hidden').length;
-    visibleCommentsCount.textContent = commentsLength - commentsHiddenLength;
+  if (hiddenComments.length > VISIBLE_COMMENTS_LIMIT) {
+    hiddenComments.slice(0, VISIBLE_COMMENTS_LIMIT).forEach((comment) => comment.classList.remove('hidden'));
+    visibleCommentsCount.textContent = comments.length - hiddenComments.length + VISIBLE_COMMENTS_LIMIT;
   } else {
-    for (let i = 0; i <= commentsLength - 1; i++) {
-      commentsContainer.children[i].classList.remove('hidden');
-    }
+    hiddenComments.forEach((comment) => comment.classList.remove('hidden'));
     commentsLoader.classList.add('hidden');
-    commentsHiddenLength = commentsContainer.querySelectorAll('.hidden').length;
-    visibleCommentsCount.textContent = commentsLength - commentsHiddenLength;
+    visibleCommentsCount.textContent = comments.length;
   }
 }
 export {onLoaderClick, bigPictureOverlay, renderComments};
