@@ -55,4 +55,4 @@ function onDocumentKeydown(evt) {
   }
 }
 
-export {showBigPictureOnClick, VISIBLE_COMMENTS_LIMIT};
+export {showBigPictureOnClick, VISIBLE_COMMENTS_LIMIT, isEscapeKey};
