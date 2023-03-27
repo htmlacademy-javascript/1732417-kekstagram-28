@@ -1,6 +1,7 @@
 import {isEscapeKey} from './show-big-picture.mjs';
 import {onEditImageFormSubmit} from './validation-form.mjs';
 import {resetScale, onBiggerButtonClick, onSmallerButtonClick} from './scale-image.mjs';
+import {hideSlider} from './effects.mjs';
 
 const modalFormOverlay = document.querySelector('.img-upload__overlay'); // модалка с hidden
 const imageUploadInput = document.querySelector('#upload-file'); //инпут с загрузкой
@@ -19,6 +20,7 @@ function openUploadForm() {
   modalFormOverlay.classList.remove('hidden');
   document.querySelector('body').classList.add('modal-open');
   resetScale();
+  hideSlider();
 
   cancelButton.addEventListener('click', closeUploadForm);
   buttonControlSmaller.addEventListener('click', onSmallerButtonClick);
