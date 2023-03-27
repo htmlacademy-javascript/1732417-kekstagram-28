@@ -1,4 +1,3 @@
-
 //Функция генератор получения случайных чисел из диапозона.
 function getRandomPositiveInteger (min, max) {
   const lower = Math.ceil(Math.min(Math.abs(min), Math.abs(max)));
@@ -29,6 +28,5 @@ function createRandomIdFromRangeGenerator(min, max) {
     return currentValue;
   };
 }
-
 
 export {getRandomPositiveInteger, getRandomArrayElement, createRandomIdFromRangeGenerator};

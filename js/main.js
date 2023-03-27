@@ -1,8 +1,11 @@
 import {createPhotos} from './mocks/generate-post-data.mjs';
 import {renderPhotos} from './photos-thumbnails.mjs';
 import {OBJECTS_COUNT} from './mocks/const.mjs';
-import {onBigPictureClick} from './show-big-picture.mjs';
+import {showBigPictureOnClick} from './show-big-picture.mjs';
+import {handlePhotoUpload} from './upload-form.mjs';
+import {applyEffects} from './effects.mjs';
 const photos = createPhotos(OBJECTS_COUNT);
 renderPhotos(photos);
-onBigPictureClick(photos);
-
+showBigPictureOnClick(photos);
+handlePhotoUpload();
+applyEffects();
