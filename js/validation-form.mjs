@@ -1,5 +1,6 @@
 const HASHTAG_VALID_REGEX = /^#[a-zа-яё0-9]{1,19}$/i;
 const MAX_HASHTAG = 5;
+const MAX_NUMBER_SUMBOLS = 140;
 
 const imgUploadForm = document.querySelector('.img-upload__form');
 const hashtagInput = document.querySelector('.text__hashtags');
@@ -48,21 +49,27 @@ function checkHashtagDuplicate(hashtags) {
  * @param {value} hashtags значение инпута
  */
 function checkLengthComment(text) {
-  return text.length <= 140;
+  return text.length <= MAX_NUMBER_SUMBOLS;
 }
 
-//Возмонжо стоит добавить проверки в цикле чтобы возвращать разные сообщения?
-imgUploadFormPristine.addValidator(hashtagInput, checkHashtagLength, `нельзя указать больше ${MAX_HASHTAG} хэш-тэгов`);
-imgUploadFormPristine.addValidator(hashtagInput, checkHashtagRegex, 'неверный хэш-тег, хэш-теги не должны содержать недопустимых символов');
-imgUploadFormPristine.addValidator(hashtagInput, checkHashtagDuplicate, 'хэш-тэги не должны повторяться');
-imgUploadFormPristine.addValidator(commentField, checkLengthComment, 'Комментарий не должен превышать 140 символов');
+/**
+ * Функция для валидации формы
+ */
+function validateForm() {
+  imgUploadFormPristine.addValidator(hashtagInput, checkHashtagLength, `нельзя указать больше ${MAX_HASHTAG} хэш-тэгов`);
+  imgUploadFormPristine.addValidator(hashtagInput, checkHashtagRegex, 'неверный хэш-тег, хэш-теги не должны содержать недопустимых символов');
+  imgUploadFormPristine.addValidator(hashtagInput, checkHashtagDuplicate, 'хэш-тэги не должны повторяться');
+  imgUploadFormPristine.addValidator(commentField, checkLengthComment, 'Комментарий не должен превышать 140 символов');
+}
 
-
-function onEditImageFormSubmit(evt) { //Возможно поменять логику
+function onEditImageFormSubmit(evt) {
   evt.preventDefault();
   if(imgUploadFormPristine.validate()) {
     imgUploadForm.submit();
   }
 }
+function onHashtagInputChange () {
+  return imgUploadFormPristine.validate();
+}
 
-export {onEditImageFormSubmit};
+export {onEditImageFormSubmit, validateForm, onHashtagInputChange };

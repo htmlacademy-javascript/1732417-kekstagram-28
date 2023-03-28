@@ -18,7 +18,7 @@ const renderComment = (commentData) => {
   commentAvatar.alt = commentData.name;
   commentPost.append(commentAvatar);
   commentPost.append(commentText);
-  if(commentsFragment.children.length >= VISIBLE_COMMENTS_LIMIT) {
+  if (commentsFragment.children.length >= VISIBLE_COMMENTS_LIMIT) {
     commentPost.classList.add('hidden');
   }
   commentsFragment.append(commentPost);
@@ -40,7 +40,7 @@ function renderComments(pictureComments) {
  * Обработчик клика на кнопке загрузки комментариев.
  * При клике на кнопку загрузки комментариев функция показывает скрытые комментарии
  */
-function onLoaderClick() {
+function onClickLoader() {
   const comments = Array.from(commentsContainer.children);
   const hiddenComments = comments.filter((comment) => comment.classList.contains('hidden'));
   const visibleCommentsCount = document.querySelector('.visible-comments-count');
@@ -55,4 +55,4 @@ function onLoaderClick() {
     visibleCommentsCount.textContent = comments.length;
   }
 }
-export {onLoaderClick, bigPictureOverlay, renderComments};
+export {onClickLoader, bigPictureOverlay, renderComments};

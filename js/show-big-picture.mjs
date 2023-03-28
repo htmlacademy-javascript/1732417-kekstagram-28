@@ -1,15 +1,15 @@
 import {picturesContainer} from './photos-thumbnails.mjs';
-import {onLoaderClick, bigPictureOverlay, renderComments} from './render-comments.mjs';
+import {onClickLoader, bigPictureOverlay, renderComments} from './render-comments.mjs';
 import {renderBigPictureData} from './big-picture-data .mjs';
 const VISIBLE_COMMENTS_LIMIT = 5;
 const buttonClose = bigPictureOverlay.querySelector('.big-picture__cancel');
 const isEscapeKey = (evt) => evt.key === 'Escape';
 
 /**
- * Обработчик клика на картинку в галерее. Открывает большую картинку.
- * @param {Object} evt - объект события клика(ссылка с картинкой).
+ * Инициализирует события при клике на фото
+ * @param {Object} photos - объект c фото-постами для навешивания события клика(ссылка с картинкой).
  */
-function showBigPictureOnClick(photos) {
+function addPictureClickHandler(photos) {
   picturesContainer.addEventListener('click', (evt) => {
 
     const pictureElement = evt.target.closest('.picture');
@@ -33,7 +33,7 @@ function showBigPictureOnClick(photos) {
       const commentsDownloadButton = bigPictureOverlay.querySelector('.comments-loader');
       commentsDownloadButton.classList.toggle('hidden', commentsCount <= VISIBLE_COMMENTS_LIMIT);
       bigPictureOverlay.querySelector('.visible-comments-count').textContent = (commentsCount > VISIBLE_COMMENTS_LIMIT) ? VISIBLE_COMMENTS_LIMIT : commentsCount;
-      commentsDownloadButton.addEventListener('click', onLoaderClick);
+      commentsDownloadButton.addEventListener('click', onClickLoader);
 
     }
   });
@@ -42,8 +42,8 @@ function showBigPictureOnClick(photos) {
 function onClosePicture() {
   bigPictureOverlay.classList.add('hidden');
   document.querySelector('body').classList.remove('modal-open');
-  bigPictureOverlay.querySelector('.comments-loader').removeEventListener('click', onLoaderClick);
-  buttonClose.removeEventListener('click', onLoaderClick);
+  bigPictureOverlay.querySelector('.comments-loader').removeEventListener('click', onClickLoader);
+  buttonClose.removeEventListener('click', onClickLoader);
   document.removeEventListener('keydown', onDocumentKeydown);
 }
 
@@ -55,4 +55,4 @@ function onDocumentKeydown(evt) {
   }
 }
 
-export {showBigPictureOnClick, VISIBLE_COMMENTS_LIMIT, isEscapeKey};
+export {addPictureClickHandler, VISIBLE_COMMENTS_LIMIT, isEscapeKey};

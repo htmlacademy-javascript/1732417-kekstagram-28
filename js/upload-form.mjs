@@ -1,5 +1,5 @@
 import {isEscapeKey} from './show-big-picture.mjs';
-import {onEditImageFormSubmit} from './validation-form.mjs';
+import {onEditImageFormSubmit, onHashtagInputChange } from './validation-form.mjs';
 import {resetScale, onBiggerButtonClick, onSmallerButtonClick} from './scale-image.mjs';
 import {hideSlider} from './effects.mjs';
 
@@ -22,17 +22,18 @@ function openUploadForm() {
   resetScale();
   hideSlider();
 
-  cancelButton.addEventListener('click', closeUploadForm);
+  cancelButton.addEventListener('click', onCloseUploadForm);
   buttonControlSmaller.addEventListener('click', onSmallerButtonClick);
   buttonControlBigger.addEventListener('click', onBiggerButtonClick);
   document.addEventListener('keydown', onCancelButtonEscKeydown);
   imgUploadForm.addEventListener('submit', onEditImageFormSubmit);
+  hashtagInput.addEventListener('input', onHashtagInputChange);
 }
 
 /**
  * Функция для закрытия модального окна
  */
-function closeUploadForm() {
+function onCloseUploadForm() {
   imageUploadInput.value = '';
   hashtagInput.value = '';
   commentField.value = '';
@@ -50,7 +51,7 @@ function closeUploadForm() {
  */
 function onCancelButtonClick(evt) {
   evt.preventDefault();
-  closeUploadForm();
+  onCloseUploadForm();
 }
 
 /**
@@ -59,7 +60,7 @@ function onCancelButtonClick(evt) {
 function onCancelButtonEscKeydown(evt) {
   if (isEscapeKey(evt) && !evt.target.closest('.text__hashtags') && !evt.target.closest('.text__description')) {
     evt.preventDefault();
-    closeUploadForm();
+    onCloseUploadForm();
   }
 }
 
@@ -75,8 +76,8 @@ function handlePhotoUploadEvent (evt) {
 /**
  * Функция которая ставит слушатель на загрузку картинки
  */
-function handlePhotoUpload() {
+function addPhotoUploadListener() {
   imageUploadInput.addEventListener('change', handlePhotoUploadEvent);
 }
 
-export{imageUploadInput, handlePhotoUpload};
+export{imageUploadInput, addPhotoUploadListener};
