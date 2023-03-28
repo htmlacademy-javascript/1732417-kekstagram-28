@@ -1,13 +1,15 @@
-const EFFECTS_LIST = {
-  chrome: {name: 'grayscale', value: ''},
-  sepia: {name: 'sepia', value: ''},
-  marvin: {name: 'invert', value: '%'},
-  phobos: {name: 'blur', value: 'px'},
-  heat: {name: 'brightness', value: ''},
-  none: {name: '', value: ''}
+const MAX_VALUE = 100;
+const effectList = {
+  chrome: {name: 'grayscale', measurements: ''},
+  sepia: {name: 'sepia', measurements: ''},
+  marvin: {name: 'invert', measurements: '%'},
+  phobos: {name: 'blur', measurements: 'px'},
+  heat: {name: 'brightness', measurements: ''},
+  none: {name: '', measurements: ''}
 };
 
 const effectInputs = document.querySelectorAll('.effects__radio');
+let effectNameRadio = effectInputs[0].value; //записываем название эффекта, чтобы не "дёргать" дом при изменении значений слайдера
 const previewImage = document.querySelector('.img-upload__preview img');
 const sliderContainer = document.querySelector('.img-upload__effect-level');
 const slider = sliderContainer.querySelector('.effect-level__slider');
@@ -23,26 +25,50 @@ noUiSlider.create(slider, {
   connect: 'lower',
 });
 
-const hideSlider = () => {
+function hideSlider() {
   sliderContainer.classList.add('hidden');
-};
+}
 
-const showSlider = () => {
+function showSlider() {
   sliderContainer.classList.remove('hidden');
-};
+}
+
+/**
+ * Функция для обновления параметров слайдера min max для эффекта 'heat'
+ */
+function updateSliderForHeatEffect() {
+  slider.noUiSlider.updateOptions({
+    range: {
+      min: 33,
+      max: 100
+    }
+  });
+}
+
+/**
+ * Функция сбрасывания параметров слайдера min max на значения по умолчанию
+ */
+function updateSliderDefault() {
+  slider.noUiSlider.updateOptions({
+    range: {
+      min: 0,
+      max: 100
+    }
+  });
+}
 
 /**
  * Функция для обработки событий при выборе эффектов и применения эффектов на фотографии
  */
-function applyEffects() {
+function initializeEffects() {
   /**
    * Функция для применения эффекта на фотографию
    * @param {string} effect название эффекта
    */
   function applyEffect(effect) {
-    const effectData = EFFECTS_LIST[effect];
+    const effectData = effectList[effect];
     const effectName = effectData.name;
-    const effectValue = effectData.value;
+    const effectValue = effectData.measurements;
 
     previewImage.className = '';
 
@@ -69,15 +95,20 @@ function applyEffects() {
   function handleEffectChange() {
     const effect = this.value;
 
+    if (effect === 'heat') {
+      updateSliderForHeatEffect();
+    } else {
+      updateSliderDefault();
+    }
+
+    applyEffect('none');
+    applyEffect(effect);
+    slider.noUiSlider.set(MAX_VALUE);
+
     if (effect === 'none') {
       hideSlider();
-      applyEffect('none');
-      slider.noUiSlider.set(100);
     } else {
       showSlider();
-      applyEffect('none'); // убираем предыдущий эффект
-      applyEffect(effect); // применяем новый эффект
-      slider.noUiSlider.set(100); // сбрасываем слайдер
     }
   }
 
@@ -87,21 +118,21 @@ function applyEffects() {
 
   /**
    * обработчик при изменении значения слайдера для изменения интенсивности эффекта
-   * @param {Array} массив значений, соответствующих положению бегунка на слайдере
-   * @param {number} индекс бегунка, соответствующего изменению значения
    */
-  slider.noUiSlider.on('update', (values, handle) => {
-    const effect = document.querySelector('.effects__radio:checked').value;
-
-    if (effect === 'marvin') {
-      sliderValue.value = Math.round((values[handle] / 1));
-    } else if (effect === 'phobos') {
-      sliderValue.value = parseFloat((values[handle] / 5).toFixed(1));
+  slider.noUiSlider.on('update', () => {
+    effectNameRadio = Array.from(effectInputs).find((radio) => radio.checked).value;
+    const sliderLevel = slider.noUiSlider.get();
+    if (effectNameRadio === 'marvin') {
+      sliderValue.value = Math.round((sliderLevel / 1));
+    } else if (effectNameRadio === 'phobos') {
+      sliderValue.value = parseFloat((sliderLevel / 3.3).toFixed(1));
+    } else if (effectNameRadio === 'heat') {
+      sliderValue.value = parseFloat((sliderLevel / 3.3).toFixed(1));
     } else {
-      sliderValue.value = parseFloat((values[handle] / 10).toFixed(1));
+      sliderValue.value = parseFloat((sliderLevel / 10).toFixed(1));
     }
-    applyEffect(effect);
+    applyEffect(effectNameRadio);
   });
 }
 
-export {applyEffects, hideSlider}; // вызов функции для применения эффектов
+export {initializeEffects, hideSlider};
