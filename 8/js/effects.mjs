@@ -25,6 +25,11 @@ noUiSlider.create(slider, {
   connect: 'lower',
 });
 
+// Функция для сброса настроект эффектов
+function resetEffectsSettings() {
+  applyEffect('none');
+}
+
 function hideSlider() {
   sliderContainer.classList.add('hidden');
 }
@@ -58,60 +63,56 @@ function updateSliderDefault() {
 }
 
 /**
+ * Функция для применения эффекта на фотографию
+ * @param {string} effect название эффекта
+ */
+function applyEffect(effect) {
+  const {name, measurements} = effectList[effect];
+  if (name) {
+    previewImage.className = `effects__preview--${effect}`;
+    if (effect === 'marvin') {
+      previewImage.style.filter = `${name}(${sliderValue.value}${measurements})`;
+    } else {
+      const sliderValueScaled = sliderValue.value / 10;
+      previewImage.style.filter = `${name}(${sliderValueScaled.toFixed(1)}${measurements})`;
+    }
+  } else {
+    previewImage.className = '';
+    previewImage.style.filter = null;
+  }
+}
+
+/**
+ * Обработчик при клике на эффект
+ */
+function handleEffectChange() {
+  const effect = this.value;
+
+  if (effect === 'heat') {
+    updateSliderForHeatEffect();
+  } else {
+    updateSliderDefault();
+  }
+
+  applyEffect('none');
+  applyEffect(effect);
+  slider.noUiSlider.set(MAX_VALUE);
+
+  if (effect === 'none') {
+    hideSlider();
+  } else {
+    showSlider();
+  }
+}
+
+/**
  * Функция для обработки событий при выборе эффектов и применения эффектов на фотографии
  */
 function initializeEffects() {
   /**
-   * Функция для применения эффекта на фотографию
-   * @param {string} effect название эффекта
-   */
-  function applyEffect(effect) {
-    const effectData = effectList[effect];
-    const effectName = effectData.name;
-    const effectValue = effectData.measurements;
-
-    previewImage.className = '';
-
-    if (effectName) {
-      previewImage.classList.add(`effects__preview--${effect}`);
-      if (effect === 'marvin') {
-        previewImage.style.filter = `${effectName}(${sliderValue.value}${effectValue})`;
-      } else {
-        previewImage.style.filter = `${effectName}(${(sliderValue.value / 10).toFixed(1)}${effectValue})`;
-      }
-    } else {
-      previewImage.style.filter = null;
-    }
-  }
-
-  /**
    * применяем эффект "Оригинал" по умолчанию
    */
   applyEffect('none');
-
-  /**
-   * Обработчик при клике на эффект
-   */
-  function handleEffectChange() {
-    const effect = this.value;
-
-    if (effect === 'heat') {
-      updateSliderForHeatEffect();
-    } else {
-      updateSliderDefault();
-    }
-
-    applyEffect('none');
-    applyEffect(effect);
-    slider.noUiSlider.set(MAX_VALUE);
-
-    if (effect === 'none') {
-      hideSlider();
-    } else {
-      showSlider();
-    }
-  }
-
   effectInputs.forEach((effectInput) => {
     effectInput.addEventListener('change', handleEffectChange);
   });
@@ -135,4 +136,4 @@ function initializeEffects() {
   });
 }
 
-export {initializeEffects, hideSlider};
+export {initializeEffects, hideSlider, resetEffectsSettings};
