@@ -68,6 +68,11 @@ function onEditImageFormSubmit(evt) {
     imgUploadForm.submit();
   }
 }
+
+/**
+ * Проверка на валидность при изменении в инпут
+ * @returns возвращает true или false если поле валидно
+ */
 function onHashtagInputChange () {
   return imgUploadFormPristine.validate();
 }
