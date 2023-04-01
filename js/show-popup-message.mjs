@@ -1,6 +1,5 @@
 import {isEscapeKey} from './show-big-picture.mjs';
-import {onCloseUploadForm} from './upload-form.mjs';
-import {onCancelButtonEscKeydown} from './upload-form.mjs';
+import {onCloseUploadForm, onCancelButtonEscKeydown} from './upload-form.mjs';
 
 const SubmitButtonText = {
   DEFALUT: 'Опубликовать',
