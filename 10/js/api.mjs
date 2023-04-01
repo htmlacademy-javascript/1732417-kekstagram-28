@@ -17,7 +17,7 @@ function load(route, errorText, method = Method.GET, body = null) {
   return fetch(`${BASE_URL}${route}`, {method, body})
     .then((response) => {
       if (!response.ok) {
-        throw new Error(ErrorText.GET_DATA);
+        throw new Error(errorText);
       }
       return response.json();
     });

@@ -1,5 +1,5 @@
 import {isEscapeKey} from './show-big-picture.mjs';
-import {onEditImageFormSubmit, onHashtagInputChange } from './validation-form.mjs';
+import {onEditImageFormSubmit, onHashtagInputChange, resetSettingsPrestine} from './validation-form.mjs';
 import {resetScale, onBiggerButtonClick, onSmallerButtonClick} from './scale-image.mjs';
 import {hideSlider, resetEffectsSettings} from './effects.mjs';
 
@@ -8,7 +8,6 @@ const imageUploadInput = document.querySelector('#upload-file'); //инпут с
 const cancelButton = modalFormOverlay.querySelector('.img-upload__cancel');
 const imgUploadForm = document.querySelector('.img-upload__form');
 const hashtagInput = document.querySelector('.text__hashtags');
-const commentField = document.querySelector('.text__description');
 const radioDefaultChecked = document.querySelector('#effect-none');
 const buttonControlSmaller = document.querySelector('.scale__control--smaller');
 const buttonControlBigger = document.querySelector('.scale__control--bigger');
@@ -35,16 +34,16 @@ function openUploadForm() {
  */
 function onCloseUploadForm() {
   imageUploadInput.value = '';
-  hashtagInput.value = '';
-  commentField.value = '';
+  resetSettingsPrestine();
+  resetEffectsSettings();
   modalFormOverlay.classList.add('hidden');
   document.querySelector('body').classList.remove('modal-open');
-  resetEffectsSettings();
   cancelButton.removeEventListener('click', onCancelButtonClick);
   buttonControlSmaller.removeEventListener('click', onSmallerButtonClick);
   buttonControlBigger.removeEventListener('click', onBiggerButtonClick);
   document.removeEventListener('keydown', onCancelButtonEscKeydown);
-
+  imgUploadForm.removeEventListener('submit', onEditImageFormSubmit);
+  hashtagInput.removeEventListener('input', onHashtagInputChange);
 }
 
 /**
@@ -81,4 +80,4 @@ function addPhotoUploadListener() {
   imageUploadInput.addEventListener('change', handlePhotoUploadEvent);
 }
 
-export{imageUploadInput, addPhotoUploadListener};
+export{imageUploadInput, addPhotoUploadListener, onCloseUploadForm, onCancelButtonEscKeydown};

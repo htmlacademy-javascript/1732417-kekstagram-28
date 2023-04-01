@@ -1,5 +1,5 @@
 const picturesContainer = document.querySelector('.pictures');
-const photoTemplate = document.querySelector('#picture').content;
+const photoTemplate = document.querySelector('#picture').content.querySelector('.picture');
 
 /**
  * Удаляем фото посты
@@ -18,8 +18,7 @@ function clearPhotoElements(photos) {
  */
 function createPhotoElement(photo) {
   const photoComponent = photoTemplate.cloneNode(true);
-
-  photoComponent.querySelector('a').dataset.id = photo.id;
+  photoComponent.dataset.id = photo.id;
   photoComponent.querySelector('.picture__img').src = photo.url;
   photoComponent.querySelector('.picture__img').alt = photo.description;
   photoComponent.querySelector('.picture__comments').textContent = photo.comments.length;
