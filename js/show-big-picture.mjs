@@ -22,7 +22,6 @@ function addPictureClickHandler(photos) {
 
       const idPhoto = +pictureElement.dataset.id;
       const pictureData = photos.find((photo) => photo.id === idPhoto);
-
       renderBigPictureData(pictureData);
       const pictureComments = pictureData.comments;
       renderComments(pictureComments);

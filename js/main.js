@@ -1,16 +1,16 @@
 import {renderPhotos} from './photos-thumbnails.mjs';
-// import {addPictureClickHandler} from './show-big-picture.mjs';
+import {addPictureClickHandler} from './show-big-picture.mjs';
 import {addPhotoUploadListener} from './upload-form.mjs';
 import {initializeEffects} from './effects.mjs';
-import {validateForm} from './validation-form.mjs';
 import {getData} from './api.mjs';
-// const photos = createPhotos(OBJECTS_COUNT);
+import {showAlert} from './show-alert-message.mjs';
 
-// addPictureClickHandler(photos);
-addPhotoUploadListener();
-validateForm();
-initializeEffects();
 getData()
   .then((photosData) => {
     renderPhotos(photosData);
+    addPictureClickHandler(photosData);
+    addPhotoUploadListener();
+    initializeEffects();
+  }).catch((err) => {
+    showAlert(err.message);
   });

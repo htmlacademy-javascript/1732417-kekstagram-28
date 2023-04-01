@@ -12,7 +12,7 @@ const imagePreview = document.querySelector('.img-upload__preview');
  */
 function scaleImage(value) {
   imagePreview.style.transform = `scale(${value / 100})`;
-  scaleControlValue.value = `${value}`;
+  scaleControlValue.value = `${value}%`;
 }
 
 /**
