@@ -18,7 +18,7 @@ const body = document.querySelector('body');
 
 /**
  * Обработчик клика на поле вокруг поп-апа success на закрытие
- * @param {HTMLElement} evt событие клика
+ * @param {evt} evt событие клика
  */
 function onAreaSuccessButtonClick(evt) {
   if (!(evt.target.closest('.success__inner'))) {
@@ -28,7 +28,7 @@ function onAreaSuccessButtonClick(evt) {
 
 /**
  * Обработчик клика на поле вокруг поп-апа error на закрытие
- * @param {HTMLElement} evt событие клика
+ * @param {evt} evt событие клика
  */
 function onAreaErrorButtonClick(evt) {
   if (!(evt.target.closest('.error__inner'))) {

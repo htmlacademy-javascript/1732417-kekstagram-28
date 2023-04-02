@@ -1,5 +1,6 @@
 const ALERT_SHOW_TIME = 5000;
 const RERENDER_DELAY = 500;
+const FILE_TYPES = ['jpg', 'jpeg', 'png'];
 
 function showAlert(message) {
   const alertContainer = document.createElement('div');
@@ -40,4 +41,4 @@ function debounce(callback, timeoutDelay) {
   };
 }
 
-export {RERENDER_DELAY, showAlert, getSortRandomly, debounce, getSortByComments};
+export {RERENDER_DELAY, FILE_TYPES, showAlert, getSortRandomly, debounce, getSortByComments};

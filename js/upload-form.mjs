@@ -2,8 +2,10 @@ import {isEscapeKey} from './show-big-picture.mjs';
 import {onEditImageFormSubmit, onHashtagInputChange, resetSettingsPrestine} from './validation-form.mjs';
 import {resetScale, onBiggerButtonClick, onSmallerButtonClick} from './scale-image.mjs';
 import {hideSlider, resetEffectsSettings} from './effects.mjs';
+import {FILE_TYPES} from './utils.mjs';
 
 const modalFormOverlay = document.querySelector('.img-upload__overlay'); // модалка с hidden
+const usersImage = modalFormOverlay.querySelector('img');
 const imageUploadInput = document.querySelector('#upload-file'); //инпут с загрузкой
 const cancelButton = modalFormOverlay.querySelector('.img-upload__cancel');
 const imgUploadForm = document.querySelector('.img-upload__form');
@@ -11,6 +13,20 @@ const hashtagInput = document.querySelector('.text__hashtags');
 const radioDefaultChecked = document.querySelector('#effect-none');
 const buttonControlSmaller = document.querySelector('.scale__control--smaller');
 const buttonControlBigger = document.querySelector('.scale__control--bigger');
+
+/**
+ * Функция отоброжает загруженную пользоавтелем фото
+ * @returns отображает загруженную пользователем фото
+ */
+function displayUsersPhoto() {
+  const file = imageUploadInput.files[0];
+  const fileName = file.name;
+  const checkType = FILE_TYPES.some((type) => fileName.endsWith(type));
+  if (!checkType) {
+    return;
+  }
+  usersImage.src = URL.createObjectURL(file);
+}
 
 /**
  * Функция для открытия модального окна
@@ -21,6 +37,7 @@ function openUploadForm() {
   radioDefaultChecked.checked = true;
   resetScale();
   hideSlider();
+  displayUsersPhoto();
   cancelButton.addEventListener('click', onCloseUploadForm);
   buttonControlSmaller.addEventListener('click', onSmallerButtonClick);
   buttonControlBigger.addEventListener('click', onBiggerButtonClick);
