@@ -12,7 +12,7 @@ getData()
     addPictureClickHandler(photosData);
     addPhotoUploadListener();
     activateFilter(photosData);
-    onClickPhotosFilter(debounce(() => renderPhotos(getSortedPhotos())), RERENDER_DELAY);
+    onClickPhotosFilter(debounce(() => renderPhotos(getSortedPhotos()), RERENDER_DELAY));
     initializeEffects();
   }).catch((err) => {
     showAlert(err.message);
