@@ -12,9 +12,9 @@ function clearPhotoElements(photos) {
 }
 
 /**
- * Создание элемента фотографии на странице.
- * @param {object} photo - Объект фотографии.
- * @returns {HTMLElement} - Элемент фотографии.
+ * Создание элемента фотографии на странице
+ * @param {object} photo - Объект фотографии
+ * @returns {HTMLElement} - Элемент фотографии
  */
 function createPhotoElement(photo) {
   const photoComponent = photoTemplate.cloneNode(true);
