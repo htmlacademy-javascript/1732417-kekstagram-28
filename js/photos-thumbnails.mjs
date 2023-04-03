@@ -27,7 +27,6 @@ function createPhotoElement(photo) {
   return photoComponent;
 }
 
-
 /**
  * Отрисовка фотографий на странице.
  * @param {Object} photosData - массив объектов с информацией о фотографиях.

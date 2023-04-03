@@ -1,4 +1,6 @@
 const ALERT_SHOW_TIME = 5000;
+const RERENDER_DELAY = 500;
+const FILE_TYPES = ['jpg', 'jpeg', 'png'];
 
 function showAlert(message) {
   const alertContainer = document.createElement('div');
@@ -21,4 +23,22 @@ function showAlert(message) {
   }, ALERT_SHOW_TIME);
 }
 
-export {showAlert};
+
+function getSortRandomly() {
+  return Math.random() - 0.5;
+}
+
+function getSortByComments(photoA, photoB) {
+  return photoB.comments.length - photoA.comments.length;
+}
+
+function debounce(callback, timeoutDelay) {
+  let timeoutId;
+
+  return (...rest) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
+  };
+}
+
+export {RERENDER_DELAY, FILE_TYPES, showAlert, getSortRandomly, debounce, getSortByComments};
